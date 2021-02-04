@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Espace Personnel{% endblock %}
-
+<body>
 {% block content %}
 <h1>Mon espace client</h1>
 <h2>Bienvenu sur votre compte {{app.user.firstname}}. </h2>
 <a href="{{path('account_password')}}"><h3>Modifier mon mot de passe</h3></a>
 {% endblock %}
+</body>

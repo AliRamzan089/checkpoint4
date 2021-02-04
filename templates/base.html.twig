@@ -9,6 +9,7 @@
     <title>{% block title%} Modelo - pour les amoureux des maquettes de bateaux {% endblock %} </title>
 
     <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/modelo.css')}}">
     <style>
@@ -43,7 +44,7 @@
                     <a class="nav-link" href="{{path('home')}}">Accueil <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nos bateaux</a>
+                    <a class="nav-link" href="{{path('products')}}">Nos bateaux</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" >Qui sommes-nous?</a>
@@ -56,6 +57,7 @@
             <a href="{{path('app_login')}}">Se connecter</a> | <a href="{{path('register')}}">S'inscrire</a>
             {% endif %}
             </div>
+            <a href="{{path('cart')}}"><i class="fas fa-shopping-cart modelo-cart"></i></a>
         </div>
     </nav>
 </header>
