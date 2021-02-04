@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Product;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Data\SearchData;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)
@@ -13,7 +14,6 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Product[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ProductRepository extends ServiceEntityRepository
-
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -21,61 +21,29 @@ class ProductRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère les produits en lien avec une recherche
-     */
-    public function findSearch(SearchData $search)
-    {
-        return $query = $this->getSearchQuery($search)->getQuery()->getResult();
-    }
-
-     /**
-     * Récupère le prix minimum et maximum correspondant à une recherche
-     * @return integer[]
-     */
-    public function findMinMax(SearchData $search): array
-    {
-        $results = $this->getSearchQuery($search, true)
-            ->select('MAX(p.price) as max')
-            ->getQuery()
-            ->getScalarResult();
-        return [0, (int)$results[0]['max']];
-    }
-
-    /*
-    * Fonction de recherche sur les produits
+    * @return Product[] 
     */
-    private function getSearchQuery(SearchData $search): QueryBuilder
+
+    public function findBySearch(SearchData $search)
     {
         $query = $this
-        ->createQueryBuilder('p')
-        ->join('p.category', 'c')
-        ->join('p.size', 's');
+            ->createQueryBuilder('p')
+            ->select('c','p')
+            ->join('p.category','c');
 
-        
-        if (!empty($search->q)) {
-                $query = $query
-                    ->andWhere('p.name LIKE :q')
-                    ->setParameter('q', "%{$search->q}%");
-            }
-    
-            if (!empty($search->min)) {
-                $query = $query
-                    ->andWhere('p.price >= :min')
-                    ->setParameter('min', $search->min);
-            }
-    
-            if (!empty($search->max)) {
-                $query = $query
-                    ->andWhere('p.price <= :max')
-                    ->setParameter('max', $search->max);
-            }
-    
-            if (!empty($search->category)) {
-                $query = $query
-                    ->andWhere('c.id IN (:category)')
-                    ->setParameter('category', $search->category);
-            }
-
-            return $query;
+        if(!empty($search->categories)){
+            $query = $query
+            ->andWhere('c.id IN (:categories)')
+            ->setParameter('categories', $search ->categories);
+        }
+        if(!empty($search->string)){
+            $query = $query
+            ->andWhere('p.name LIKE :string')
+            ->setParameter('string',"%{$search->string}%");
+        }
+        return $query->getQuery()->getResult();
+            
+        ;
     }
+
 }

@@ -11,6 +11,7 @@ body{
     width: 100%;
     background-color: #dfeaff;
     padding-top: 25px;
+    
 }
 .product-item{
     margin-top: 15px;
@@ -36,4 +37,9 @@ body{
 .product-single-price{
     font-size: 20px;
 
+}
+.modelo-cart{
+    color :white;
+    height: 20px;
+    padding-left: 20px;
 }
