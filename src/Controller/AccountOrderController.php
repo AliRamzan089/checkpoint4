@@ -2,14 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
+use App\Entity\Order;
 use Doctrine\ORM\EntityManagerInterface;
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class HomeController extends AbstractController
+class AccountOrderController extends AbstractController
 {
     private $entityManager;
 
@@ -18,13 +17,13 @@ class HomeController extends AbstractController
         $this->entityManager = $entityManager;
     }
     /**
-     * @Route("/", name="home")
+     * @Route("/compte/mes-commandes", name="account_order")
      */
     public function index(): Response
     {
-        $products = $this->entityManager->getRepository(Product::class)->findByIsBest(1);
-        return $this->render('home/index.html.twig',[
-            'products' => $products
+        $order = $this->entityManager->getRepository(Order::class)->findSuccessOrders($this->getuser());
+        return $this->render('account/order.html.twig',[
+            'order' => $order      
         ]);
     }
 }

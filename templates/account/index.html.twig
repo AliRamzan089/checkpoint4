@@ -5,6 +5,13 @@
 {% block content %}
 <h1>Mon espace client</h1>
 <h2>Bienvenu sur votre compte {{app.user.firstname}}. </h2>
-<a href="{{path('account_password')}}"><h3>Modifier mon mot de passe</h3></a>
-<a href="{{path('account_address')}}"><h3>Modifier mes adresses</h3></a>
+<hr>
+{% if is_granted('ROLE_ADMIN') %}
+-<a href=""><h3>Mon espade Admin</h3></a>
+{% endif %}
+-<a href="{{path('account_password')}}"><h3>Modifier mon mot de passe</h3></a>
+-<a href="{{path('account_address')}}"><h3>Modifier mes adresses</h3></a>
+-<a href="{{path('account_order')}}"><h3>Mes commandes</h3></a>
+
+
 {% endblock %}
