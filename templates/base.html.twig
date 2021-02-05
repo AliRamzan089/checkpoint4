@@ -46,9 +46,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{path('products')}}">Nos bateaux</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" >Qui sommes-nous?</a>
-                </li>
             </ul>
             <div class="navbar-item-custom"> 
             {% if app.user %}
@@ -116,7 +113,11 @@
 
     
     {% block content %}
-
+      
+    
+    {% endblock %}
+    {% block script %}
+            
     {% endblock %}
     
 <!-- Marketing messaging and featurettes

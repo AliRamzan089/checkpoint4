@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Personnel{% endblock %}
+
+{% block content %}
+<h1>Mes commandes</h1>
+<h2>{{app.user.firstname}}, Suivez toutes vos commandes. </h2>
+
+<a href="{{path('account')}}">Retour</a>
+<hr>
+
+{% if order |length == 0 %}
+<p class="text-center">
+    Aucune commande en cours <a
+</p>
+{% else %}
+<div class="row">
+    <table class="table mt-3">
+        <thead>
+          <tr>
+            <th scope="col">Passé le</th>
+            <th scope="col">Référence</th>
+            <th scope="col">Produit(s)</th>
+            <th scope="col">Total</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            {% for order in orders %}
+            {{dump(order)}}
+            <td>
+                
+              {{order.createdAt| date('d/m/Y')}}
+            </td>
+            <td>{{ order.reference}} €</td>
+            <td>{{ orde.orderDetails | length }} €</td>
+            
+            <td>--</td>
+            <td>
+                Voir ma commande
+              </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endif %}
+{% endblock %}

@@ -65,6 +65,11 @@ class Product
      */
     private $quantity;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isBest;
+
 
     public function __construct()
     {
@@ -180,6 +185,18 @@ class Product
     public function setQuantity(string $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getIsBest(): ?bool
+    {
+        return $this->isBest;
+    }
+
+    public function setIsBest(bool $isBest): self
+    {
+        $this->isBest = $isBest;
 
         return $this;
     }
